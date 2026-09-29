@@ -22,6 +22,10 @@ A kid-friendly **waste sorting game** with a Minecraft-inspired UI. Players sort
 
 Progression: **≥75%** accuracy → level up · **≤40%** → level down · otherwise stay.
 
+## Live demo
+
+https://sumanth-1810.github.io/sortwise/
+
 ## Run locally
 
 ```bash
@@ -29,12 +33,16 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173/](http://localhost:5173/).
+Open [http://localhost:5173/sortwise/](http://localhost:5173/sortwise/) (dev uses the same `/sortwise/` base as GitHub Pages).
 
 ```bash
 npm run build    # production build
 npm run preview  # preview production build
 ```
+
+## Deploy
+
+Pushes to `main` deploy automatically via GitHub Actions → GitHub Pages (workflow in `.github/workflows/deploy.yml`).
 
 ## Project structure
 
