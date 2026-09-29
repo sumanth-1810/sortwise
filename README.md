@@ -8,7 +8,7 @@ A child-friendly **waste sorting game**. Players sort single items and mixed was
 - **Real item photos** + **icon + text** answer buttons
 - **Levels 1–5** — Level 1 starts at **20 seconds** per item; time drops and decks get harder as you level up
 - **Adaptive difficulty** — logistic regression predicts what you’re likely to miss and shapes the next round
-- **Minecraft-style UI** — pixel fonts, beveled panels, inventory-like buttons
+
 
 ## Level timers
 
