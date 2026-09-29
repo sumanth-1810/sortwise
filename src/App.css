@@ -99,6 +99,14 @@
   border: 3px solid #000;
   box-shadow: inset 2px 2px 0 #cfcfcf, inset -2px -2px 0 #555;
   color: #222;
+  cursor: pointer;
+}
+
+.level-pip:disabled,
+.level-pip.locked {
+  cursor: not-allowed;
+  opacity: 0.55;
+  filter: grayscale(0.35);
 }
 
 .level-pip.cleared {
@@ -111,6 +119,12 @@
   color: #111;
   outline: 2px solid #fff;
   outline-offset: 1px;
+}
+
+.level-hint {
+  margin: -0.55rem 0 1rem;
+  font-size: 1.05rem;
+  color: #2b2118;
 }
 
 .level-result {

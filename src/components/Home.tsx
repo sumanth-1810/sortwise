@@ -1,6 +1,12 @@
-import type { CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { BINS } from '../data/items'
-import { getLevelConfig, loadLevel, type Level } from '../game/levels'
+import {
+  getLevelConfig,
+  loadSelectedLevel,
+  loadUnlockedLevel,
+  saveSelectedLevel,
+  type Level,
+} from '../game/levels'
 import type { BinId } from '../types'
 import { BinGlyph } from './BinGlyph'
 
@@ -9,8 +15,15 @@ interface HomeProps {
 }
 
 export function Home({ onStart }: HomeProps) {
-  const level = loadLevel()
-  const config = getLevelConfig(level)
+  const unlocked = loadUnlockedLevel()
+  const [selected, setSelected] = useState<Level>(() => loadSelectedLevel())
+  const config = getLevelConfig(selected)
+
+  function selectLevel(lv: Level) {
+    if (lv > unlocked) return
+    saveSelectedLevel(lv)
+    setSelected(lv)
+  }
 
   return (
     <div className="screen home">
@@ -23,20 +36,37 @@ export function Home({ onStart }: HomeProps) {
           combo — like Compost + Trash.
         </p>
         <p className="level-banner">
-          Level {level} · {config.label} · {config.secondsPerItem}s per item
+          Level {selected} · {config.label} · {config.secondsPerItem}s per item
         </p>
       </header>
 
       <div className="level-track" aria-label="Levels 1 to 5">
-        {([1, 2, 3, 4, 5] as Level[]).map((lv) => (
-          <div
-            key={lv}
-            className={`level-pip ${lv === level ? 'active' : ''} ${lv < level ? 'cleared' : ''}`}
-          >
-            {lv}
-          </div>
-        ))}
+        {([1, 2, 3, 4, 5] as Level[]).map((lv) => {
+          const locked = lv > unlocked
+          const isSelected = lv === selected
+          const cleared = lv < unlocked
+          return (
+            <button
+              key={lv}
+              type="button"
+              disabled={locked}
+              title={
+                locked
+                  ? `Locked — clear Level ${lv - 1} first`
+                  : `Play Level ${lv}`
+              }
+              className={`level-pip ${isSelected ? 'active' : ''} ${cleared ? 'cleared' : ''} ${locked ? 'locked' : ''}`}
+              onClick={() => selectLevel(lv)}
+            >
+              {lv}
+            </button>
+          )
+        })}
       </div>
+      <p className="level-hint">
+        Tap an unlocked level to replay it. Higher levels stay locked until you
+        clear the one before.
+      </p>
 
       <div className="bin-preview" aria-hidden>
         {(Object.keys(BINS) as BinId[]).map((id) => (
@@ -53,7 +83,7 @@ export function Home({ onStart }: HomeProps) {
 
       <div className="home-actions">
         <button type="button" className="btn btn-primary" onClick={onStart}>
-          Start crafting!
+          Start Level {selected}!
         </button>
         <button
           type="button"
@@ -66,7 +96,8 @@ export function Home({ onStart }: HomeProps) {
       </div>
 
       <p className="home-note">
-        Score ≥75% to level up · ≤40% drops a level · time gets tighter up high
+        Score ≥75% on your highest level to unlock the next · ≤40% can drop
+        unlock
       </p>
     </div>
   )

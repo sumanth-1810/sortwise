@@ -11,7 +11,7 @@ import {
   scoreAttempt,
   summarizeRound,
 } from '../game/logic'
-import { getLevelConfig, loadLevel, nextLevelFromPerformance } from '../game/levels'
+import { getLevelConfig, loadSelectedLevel, nextLevelFromPerformance } from '../game/levels'
 import { buildAdaptiveRound } from '../ml/adaptive'
 import { appendAttempts, retrainMissModel } from '../ml/storage'
 import type {
@@ -43,7 +43,7 @@ type FeedbackState = {
 }
 
 export function PlayRound({ onFinish, onRestart, onQuit }: PlayRoundProps) {
-  const level = useMemo(() => loadLevel(), [])
+  const level = useMemo(() => loadSelectedLevel(), [])
   const { deck, hint, secondsPerItem } = useMemo(
     () => buildAdaptiveRound(level),
     [level],
