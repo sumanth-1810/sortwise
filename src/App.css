@@ -219,7 +219,22 @@
   box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555;
 }
 
-/* Play HUD — hotbar / inventory vibe */
+/* Play */
+.play-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.btn-tiny {
+  padding: 0.45rem 0.55rem;
+  font-size: 0.42rem;
+  background: linear-gradient(#9a9a9a, #6f6f6f);
+  color: #111;
+  text-shadow: 1px 1px 0 #cfcfcf;
+}
+
 .play-hud {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

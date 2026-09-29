@@ -104,10 +104,20 @@ export function Results({ result, onReplay, onHome }: ResultsProps) {
                     <strong>{item.name}</strong>
                     <p className="miss-answer-row">
                       <span>You:</span>
-                      <AnswerVisual
-                        bins={attempt.chosenKey.split('+').filter(Boolean) as BinId[]}
-                      />
-                      <span>{formatBinsKey(attempt.chosenKey)}</span>
+                      {attempt.timedOut || attempt.chosenKey === 'timeout' ? (
+                        <span>Didn&apos;t pick (time up)</span>
+                      ) : (
+                        <>
+                          <AnswerVisual
+                            bins={
+                              attempt.chosenKey
+                                .split('+')
+                                .filter(Boolean) as BinId[]
+                            }
+                          />
+                          <span>{formatBinsKey(attempt.chosenKey)}</span>
+                        </>
+                      )}
                     </p>
                     <p className="miss-answer-row">
                       <span>Correct:</span>

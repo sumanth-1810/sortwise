@@ -71,12 +71,14 @@ export interface WasteItem {
 
 export interface Attempt {
   itemId: string
+  /** Bin key like "compost+landfill", or "timeout" if time ran out */
   chosenKey: string
   correctKey: string
   material: MaterialCategory
   isMixed: boolean
   correct: boolean
   timeMs: number
+  timedOut?: boolean
 }
 
 export interface ItemOutcome {

@@ -26,6 +26,11 @@ function App() {
             setResult(roundResult)
             setScreen('results')
           }}
+          onRestart={startRound}
+          onQuit={() => {
+            setResult(null)
+            setScreen('home')
+          }}
         />
       )}
       {screen === 'results' && result && (

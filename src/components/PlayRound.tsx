@@ -26,10 +26,13 @@ import { AnswerVisual, BinGlyph } from './BinGlyph'
 
 interface PlayRoundProps {
   onFinish: (result: RoundResult) => void
+  onRestart: () => void
+  onQuit: () => void
 }
 
 type FeedbackState = {
   correct: boolean
+  timedOut: boolean
   chosen: BinId[]
   item: WasteItem
   points: number
@@ -39,7 +42,7 @@ type FeedbackState = {
   isLast: boolean
 }
 
-export function PlayRound({ onFinish }: PlayRoundProps) {
+export function PlayRound({ onFinish, onRestart, onQuit }: PlayRoundProps) {
   const level = useMemo(() => loadLevel(), [])
   const { deck, hint, secondsPerItem } = useMemo(
     () => buildAdaptiveRound(level),
@@ -113,7 +116,7 @@ export function PlayRound({ onFinish }: PlayRoundProps) {
 
     const timeMs = Date.now() - startedAt.current
     const timedOut = chosen === null
-    const chosenBins: BinId[] = timedOut ? ['landfill'] : chosen
+    const chosenBins: BinId[] = timedOut ? [] : chosen
     const correct = !timedOut && sameBins(chosenBins, current.trueBins)
     const { points, newStreak } = scoreAttempt(
       correct,
@@ -124,12 +127,13 @@ export function PlayRound({ onFinish }: PlayRoundProps) {
 
     const attempt: Attempt = {
       itemId: current.id,
-      chosenKey: binsKey(chosenBins),
+      chosenKey: timedOut ? 'timeout' : binsKey(chosenBins),
       correctKey: binsKey(current.trueBins),
       material: itemMaterial(current),
       isMixed: current.kind === 'mixed',
       correct,
       timeMs,
+      timedOut,
     }
 
     const outcome: ItemOutcome = {
@@ -154,6 +158,7 @@ export function PlayRound({ onFinish }: PlayRoundProps) {
     setStreak(newStreak)
     setFeedback({
       correct,
+      timedOut,
       chosen: chosenBins,
       item: current,
       points,
@@ -210,6 +215,15 @@ export function PlayRound({ onFinish }: PlayRoundProps) {
 
   return (
     <div className="screen play">
+      <div className="play-actions">
+        <button type="button" className="btn btn-tiny" onClick={onRestart}>
+          Restart
+        </button>
+        <button type="button" className="btn btn-tiny" onClick={onQuit}>
+          Quit
+        </button>
+      </div>
+
       <header className="play-hud">
         <div className="hud-stat">
           <span className="hud-label">Level</span>
@@ -304,17 +318,27 @@ export function PlayRound({ onFinish }: PlayRoundProps) {
       ) : (
         <div className={`feedback ${feedback.correct ? 'ok' : 'bad'}`}>
           <p className="feedback-badge">
-            {feedback.correct ? 'Great job!' : 'Oops — not quite'}
+            {feedback.timedOut
+              ? "Time's up!"
+              : feedback.correct
+                ? 'Great job!'
+                : 'Oops — not quite'}
             <span className="feedback-points">
               {feedback.points >= 0 ? `+${feedback.points}` : feedback.points}
             </span>
           </p>
           <h2 className="feedback-title">{feedback.item.name}</h2>
           <p className="feedback-bins">
-            <span className="feedback-choice-row">
-              You chose <AnswerVisual bins={feedback.chosen} />
-              <strong>{formatBins(feedback.chosen)}</strong>
-            </span>
+            {feedback.timedOut ? (
+              <span className="feedback-choice-row">
+                You didn&apos;t choose anything in time.
+              </span>
+            ) : (
+              <span className="feedback-choice-row">
+                You chose <AnswerVisual bins={feedback.chosen} />
+                <strong>{formatBins(feedback.chosen)}</strong>
+              </span>
+            )}
             {!feedback.correct && (
               <span className="feedback-choice-row">
                 Right answer <AnswerVisual bins={feedback.item.trueBins} />
