@@ -1,6 +1,6 @@
 # SortWise
 
-A child-friendly **waste sorting game** with a Minecraft-inspired UI. Players sort single items and mixed waste into the right bins (or combos), with levels that get harder based on performance.
+A child-friendly **waste sorting game**. Players sort single items and mixed waste into the right bins (or combos), with levels that get harder based on performance.
 
 ## Features
 
