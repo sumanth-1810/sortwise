@@ -1,0 +1,94 @@
+:root {
+  --mc-dirt: #8b5a2b;
+  --mc-dirt-dark: #6b4423;
+  --mc-grass: #5d9c3d;
+  --mc-grass-light: #7cba4b;
+  --mc-stone: #8b8b8b;
+  --mc-stone-dark: #373737;
+  --mc-stone-mid: #6f6f6f;
+  --mc-panel: #c6c6c6;
+  --mc-panel-dark: #8b8b8b;
+  --mc-wood: #c4a35a;
+  --mc-wood-dark: #8a6d3b;
+  --mc-sky: #7eb8da;
+  --mc-sky-deep: #4a90b8;
+  --ink: #1a1a1a;
+  --ink-soft: #3a3a3a;
+  --paper: #c6c6c6;
+  --accent: #5d9c3d;
+  --accent-ink: #f4f4f4;
+  --ok: #3d9c3d;
+  --bad: #a03030;
+  --xp: #80ff20;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'VT323', monospace;
+  font-family: var(--font-body);
+  line-height: 1.25;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--ink);
+  background: var(--mc-sky);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: none;
+  image-rendering: pixelated;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  /* Sky + grass strip + dirt block grid */
+  background:
+    linear-gradient(
+      to bottom,
+      #7eb8da 0%,
+      #9ecfee 42%,
+      #5d9c3d 42%,
+      #5d9c3d 48%,
+      #8b5a2b 48%,
+      #8b5a2b 100%
+    );
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 48% 0 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(#0000 31px, rgba(0, 0, 0, 0.2) 32px),
+    linear-gradient(90deg, #0000 31px, rgba(0, 0, 0, 0.2) 32px);
+  background-size: 32px 32px;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(0.4);
+}
