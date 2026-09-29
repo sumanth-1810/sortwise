@@ -7,7 +7,7 @@ interface ItemArtProps {
 
 /** Real photo for each waste card (files in /public/items). */
 export function ItemArt({ icon, title }: ItemArtProps) {
-  const src = `/items/${icon}.jpg`
+  const src = `${import.meta.env.BASE_URL}items/${icon}.jpg`
   return (
     <div className="item-art" role="img" aria-label={title}>
       <img src={src} alt={title} className="item-art-img" loading="lazy" />
