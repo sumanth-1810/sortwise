@@ -12,9 +12,10 @@ import { BinGlyph } from './BinGlyph'
 
 interface HomeProps {
   onStart: () => void
+  onScan: () => void
 }
 
-export function Home({ onStart }: HomeProps) {
+export function Home({ onStart, onScan }: HomeProps) {
   const unlocked = loadUnlockedLevel()
   const [selected, setSelected] = useState<Level>(() => loadSelectedLevel())
   const config = getLevelConfig(selected)
@@ -85,13 +86,8 @@ export function Home({ onStart }: HomeProps) {
         <button type="button" className="btn btn-primary" onClick={onStart}>
           Start Level {selected}!
         </button>
-        <button
-          type="button"
-          className="btn btn-ghost"
-          disabled
-          title="Coming later"
-        >
-          Scan item (CV — soon)
+        <button type="button" className="btn btn-ghost" onClick={onScan}>
+          Scan item
         </button>
       </div>
 

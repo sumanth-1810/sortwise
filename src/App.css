@@ -888,6 +888,82 @@
   margin-top: 0.85rem;
 }
 
+.scan-frame {
+  background: #111;
+  border: 4px solid #000;
+  box-shadow: inset 3px 3px 0 #555, 0 0 0 2px #000;
+  margin-bottom: 0.75rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.scan-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scan-result {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: #c6c6c6;
+  border: 4px solid #000;
+  box-shadow: inset 3px 3px 0 #fff, inset -3px -3px 0 #555;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.scan-result strong {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+
+.scan-result p {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+}
+
+.scan-frame {
+  background: #111;
+  border: 4px solid #000;
+  box-shadow: inset 3px 3px 0 #555, 0 0 0 2px #000;
+  margin-bottom: 0.75rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.scan-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scan-result {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: #c6c6c6;
+  border: 4px solid #000;
+  box-shadow: inset 3px 3px 0 #fff, inset -3px -3px 0 #555;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.scan-result strong {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+
+.scan-result p {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+}
+
 @media (min-width: 640px) {
   .app-shell {
     padding: 1.5rem;

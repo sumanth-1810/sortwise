@@ -5,4 +5,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   base: '/sortwise/',
   plugins: [react()],
+  optimizeDeps: {
+    exclude: ['onnxruntime-web'],
+  },
 })

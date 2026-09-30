@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Home } from './components/Home'
 import { PlayRound } from './components/PlayRound'
 import { Results } from './components/Results'
+import { Scan } from './components/Scan'
 import type { RoundResult, Screen } from './types'
 import './App.css'
 
@@ -18,7 +19,10 @@ function App() {
 
   return (
     <div className="app-shell">
-      {screen === 'home' && <Home onStart={startRound} />}
+      {screen === 'home' && (
+        <Home onStart={startRound} onScan={() => setScreen('scan')} />
+      )}
+      {screen === 'scan' && <Scan onBack={() => setScreen('home')} />}
       {screen === 'play' && (
         <PlayRound
           key={playKey}

@@ -103,4 +103,4 @@ export interface RoundResult {
   mixedAccuracy?: number | null
 }
 
-export type Screen = 'home' | 'play' | 'results'
+export type Screen = 'home' | 'play' | 'results' | 'scan'
